@@ -14,10 +14,13 @@ class CreateVehiculosTable extends Migration
     {
         Schema::create('vehiculos',function(Blueprint $table){
             $table->Increments('id')->unsigned();
+            $table->string('codigo',60);
             $table->string('nombre',120);
             $table->string('tipo',120)->nullable();
             $table->string('matricula')->nullable();
             $table->integer('organismo_id')->unsigned();
+            $table->integer('municipio_id')->unsigned();
+            $table->integer('parroquia_id')->unsigned();
             $table->timestamps();  
         });
     }

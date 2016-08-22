@@ -207,19 +207,60 @@
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->
-              <div class="col-md-4">
-                <div class="form-group">
+
+            <div class="col-md-5">
+                 <div class="form-group">
+                    <label for="DireccionInput">Motivos</label>
+                    <select class="form-control select2" name="motivos" style="width: 100%;">
+                    <option selected="selected"> </option>
+                      @foreach ($motivos as $motivo)
+                          <option value="{{ $motivo->id }}">{{ $motivo->motivo }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                <!-- /.form-group -->
+                  <div class="form-group">
                     <label for="DireccionInput">Cuadrante</label>
-                    <select id="localidad" class="form-control select2" name="localidad" style="width: 100%;">
-                      <option selected="selected"> </option>
+                    <select id="cuadrante" class="form-control select2" name="cuadrante" style="width: 100%;">
+                      <option selected="selected">--:--</option>
                       
                     </select>
-                </div>
+                  </div>
                 <!-- /.form-group -->
-              </div>
+                <!--
+                <div class="form-group">
+                    <label for="DireccionInput">detalles</label>
+                    <input type="text" name="detalles" id="detalles" class="form-control select2"> 
+                </div>
+                -->
+                <!-- /.form-group -->
+            </div>
               <!-- /.col -->
 
+              <div class="col-md-3">
+                <select name="from[]" id="fromOrganismos" class="multiselect form-control" size="8" multiple="multiple" data-right="#multiselect_to_1" data-right-all="#right_All_1" data-right-selected="#right_Selected_1" data-left-all="#left_All_1" data-left-selected="#left_Selected_1">
+                  @foreach ($organismos as $organismo)
+                        <option value="{{ $organismo->id }}">{{ $organismo->siglas }}</option>
+                  @endforeach
+                </select>
+              </div>
+    
+              <div class="col-md-1">
+                <button type="button" id="right_All_1" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+                <button type="button" id="right_Selected_1" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                <button type="button" id="left_Selected_1" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                <button type="button" id="left_All_1" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+              </div>
+    
+            <div class="col-md-3">
+              <select name="organismo[]" id="multiselect_to_1" class="form-control" size="8" multiple="multiple"></select>
+            </div>
+
+              <!--
               <div class="col-md-4">
+
+
+              
                 <div class="form-group">
                     <label for="DireccionInput">Organismos</label>
                     <select id="organismo"  multiple="multiple" class="form-control select2" name="organismo[]" style="width: 100%;">
@@ -228,24 +269,14 @@
                       @endforeach
                     </select>
                 </div>
-                <!-- /.form-group -->
+
+              
               </div>
+              -->
               <!-- /.col -->
-              <div class="col-md-4">
-                <div class="form-group">
-                    <label for="DireccionInput">Motivos</label>
-                    <select class="form-control select2" name="motivos" style="width: 100%;">
-                    <option selected="selected"> </option>
-                      @foreach ($motivos as $motivo)
-                                    <option value="{{ $motivo->id }}">{{ $motivo->motivo }}</option>
-                      @endforeach
-                    </select>
-                </div>
-                <!-- /.form-group -->
-              </div>
+             
               <!-- /.col -->
-            </div>
-            <!-- /.row -->
+            
           </div>
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <!-- /.box-body -->
@@ -266,6 +297,7 @@
 
 @section('javascript')
 
+<script src="{{ asset('plugins/multiselect/multiselect.min.js') }}"></script>
 <script charset="utf-8">
 /*
   $("#series").chained("#mark");
@@ -293,44 +325,51 @@ jQuery(document).ready(function($){
   });
 
 jQuery(document).ready(function($){
-    $('#parroquia').change(function(){
-      $.get("{{ url('api/dropdown/parroquia')}}", 
+    $('#municipio').change(function(){
+      $.get("{{ url('api/dropdown/cuadrante')}}", 
         { cuadrantes: $(this).val() }, 
         function(data) {
           var cuadrante = $('#cuadrante');
           cuadrante.empty();
- 
           $.each(data, function(index, element) {
                   cuadrante.append("<option value='"+ index +"'>" + element + "</option>");
               });
         });
     });
   });
-/*
 
-$(function(){
-
-  $("#parroquia-remote").remoteChained("#municipio-remote","api/municipio/json");
-
-  $('#parroquia-remotes').change(function()
-{
-    $.get('/countries/' + this.value + '/cities.json', function(cities)
-    {
-        var $state = $('#state');
-
-        $state.find('option').remove().end();
-
-        $.each(cities, function(index, city) {
-            $state.append('<option value="' + city.id + '">' + city.name + '</option>');
+jQuery(document).ready(function($){
+    $('#parroquia').change(function(){
+      $.get("{{ url('api/dropdown/parroquia')}}", 
+        { localidades: $(this).val() }, 
+        function(data) {
+          var localidad = $('#cuadrante');
+          localidades.empty();
+ 
+          $.each(data, function(index, element) {
+                  localidad.append("<option value='"+ index +"'>" + element + "</option>");
+              });
         });
     });
-});
+  });
 
-  $("#series-remote").remoteChained("#mark-remote", "api/chained/json");
-  $("#model-remote").remoteChained("#series-remote", "api/chained/json");
-  $("#engine-remote").remoteChained("#series-remote, #model-remote", "http://www.appelsiini.net/projects/chained/json.php");
-});
-*/
+//organismos
+
+
+
 </script>
 
+<script src="{{ asset('plugins/multiselect/multiselect.min.js') }}"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $('.multiselect').multiselect();
+});
+
+$('#fromOrganismos').multiselect({
+        search: {
+            left: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
+            right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
+        }
+    });
+</script>
 @endsection

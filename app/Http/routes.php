@@ -92,7 +92,8 @@ Route::group(
 
 Route::get('api/dropdown/municipio','Operadores\RecepcionController@getMunicipio');
 Route::get('api/dropdown/parroquia','Operadores\RecepcionController@parroquia');
-Route::get('admin/recepcion/api/municipio/json','Operadores\RecepcionController@municipio');
+Route::get('api/dropdown/cuadrante','Operadores\RecepcionController@getCuadrante');
+//Route::get('admin/recepcion/api/municipio/json','Operadores\RecepcionController@municipio');
 
 
 Route::auth();

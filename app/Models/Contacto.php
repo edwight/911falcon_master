@@ -21,7 +21,7 @@ class Contacto extends Model
         //return $this->belongsTo('App\Models\Organismo');
         return $this->belongsToMany('App\Models\Organismo')->withTimestamps();
     }
-     public function municipio(){
+    public function municipio(){
         return $this->belongsTo('App\Models\Municipio');
     }
      public function parroquia(){

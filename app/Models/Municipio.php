@@ -28,4 +28,8 @@ class Municipio extends Model
     {
         return $this->belongsToMany('App\Models\motivo');
     }
+    public function cuadrantes()
+    {
+        return $this->hasMany('App\Models\Cuadrante');
+    }
 }

@@ -9,6 +9,7 @@ use App\Models\Contacto;
 use App\Models\User;
 use App\Models\Estado;
 use App\Models\Organismo;
+use App\Models\Cuadrante;
 use App\Models\Motivo;
 use App\Models\Municipio;
 use App\Models\Llamada;
@@ -64,6 +65,7 @@ class RecepcionController extends Controller
      */
     public function store(Request $request)
     {
+        $organismo = $request->input('organismo');//required
         $user = Auth::id();
         $users = User::find($user);
         //$fecha = Carbon::now()->toDateTimeString();
@@ -322,40 +324,7 @@ class RecepcionController extends Controller
         //$contacto->direcciones()->save($direcciones);
 
         return redirect('admin/recepcion/create');
-         /*
-        $rules = [
-            'phone' => 'required|numeric',
-            'name' => 'required|string',
-            'direccion' => 'required',
-            'descripcion' => 'required',  
-        ];
-
-        $validator = Validator::make($data, $rules);
-
-        if ($validator->fails())
-        {
-            // It failed
-            Redirect::back()->withErrors($validator->messages())->withInput();
-        }
-        else{
-            return 'correcto';
-        }
-       
-        $validator = Validator::make($request->all(), [
-            'phone' => 'required|numeric',
-            'name' => 'required|string',
-            'direccion' => 'required',
-            'descripcion' => 'required',     
-        ]);
-        if ($validator->fails()) {
-            return redirect('contacto/create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-        else{
-            return 'correcto';
-        }
-    */
+      
     }
 
     /**
@@ -422,6 +391,15 @@ class RecepcionController extends Controller
         $parroquias = localidad::where('parroquia_id',$input)->lists('localidad', 'id');
         return $parroquias;
 
+        
+    }
+    public function getCuadrante(Request $request)
+    {
+
+    $input = $request->input('cuadrantes');
+    //$organismos = $request->input('organismos');  
+        $parroquias = Cuadrante::where('municipio_id',$input)->lists('cuadrante', 'id');
+        return $parroquias;
         
     }
 }
