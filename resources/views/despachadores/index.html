@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Todolist with Vue.js</title>
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="styles.css">
+	<script src="https://code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.10/vue.min.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.10/vue.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.17/vue-resource.min.js"></script>
+
+
+</head>
+<body>
+	<div id="todolist" class="container">
+		<h1>Mis tareas</h1>
+		<div class="row">
+			<div class="col-lg-3">
+				<input class="form-control" placeholder="Añade una tarea" />
+			</div>
+			<div class="col-lg-12">
+				<h3>Pendientes</h3>
+				<ul class="col-lg-12 list-unstyled">
+					<li class="item">
+						<span class="glyphicon glyphicon-ok"></span>
+						Ir a comprar
+					</li>
+					<li class="item">
+						<span class="glyphicon glyphicon-ok"></span>
+						Llamar al cliente
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-lg-12">
+				<h3>Completadas</h3>
+				<ul class="col-lg-12 list-unstyled">
+					<li class="item">
+						<span class="glyphicon glyphicon-ok completed"></span>
+						Escribir el post
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.8/vue.min.js"></script>
+	<script src="app.js"></script>
+</body>
+<style type="text/css">
+	.item span {
+	color: gray;
+	cursor: pointer;
+}
+
+.item .completed {
+	color: green;
+	cursor: pointer;
+}
+
+</style>
+<script type="text/javascript">
+
+jQuery(document).ready(function($){
+    $('#municipio').change(function(){
+      $.get("{{ url('api/dropdown/municipio')}}", 
+        { option: $(this).val() }, 
+        function(data) {
+          var parroquia = $('#parroquia');
+          parroquia.empty();
+ 
+          $.each(data, function(index, element) {
+                  parroquia.append("<option value='"+ index +"'>" + element + "</option>");
+              });
+        });
+    });
+  });
+
+$('ul.li item').each(function() {
+    var urln = $(this).attr("href"),
+        $list = $(this).parent(); // <---- get the target list item here
+    $.ajax({
+        type: 'GET',
+        dataType: 'html',
+        url: urln,
+        success: function(data) {
+            var res = $(data).find('.CategoryDescription').html();
+            $list.find("div.allprdct").before('<div class="desc">' + res + '</div>'); // <---add here.
+        }
+    });    
+});
+
+$('.col-lg-12 ul').each(
+    $('<li>').append(
+        $('<a>').attr('href','/user/messages').append(
+            $('<span>').attr('class', 'tab').append("Message center")
+)));    
+</script>
+</html>

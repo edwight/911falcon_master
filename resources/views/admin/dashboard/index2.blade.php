@@ -524,11 +524,6 @@
   </div>
 
 
-  <script>
-
-   
-
-</script>
 @endsection
 
 @section('javascript')

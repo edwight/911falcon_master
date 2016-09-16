@@ -46,7 +46,7 @@
                 <div class="col-md-6">
                    <div class="form-group">
                       <label for="exampleInputEmail1">Telefono</label>
-                       {!! Form::text('telefono',$user->phone,['class'=>'form-control','name'=>'telefono','placeholder'=>'Telefono','id'=>'exampleInputEmail1'] ) !!}
+                       {!! Form::text('phone',$user->phone,['class'=>'form-control','name'=>'phone','placeholder'=>'Telefono','id'=>'exampleInputEmail1'] ) !!}
                     </div>
                   <!-- /.form-group -->
                     <div class="form-group">
@@ -73,7 +73,11 @@
                   <div class="form-group">
                       <label for="DireccionInput">Grupo</label>
                       <select name="grupos" class="form-control select2" style="width: 100%;">
-                        <option selected="selected">{{$user->grupo->name}}</option>
+                        @if($user->grupo)
+                          <option selected="selected" value="{{$user->grupo->id}}">
+                           {{ $user->grupo->name}}
+                          </option>
+                        @endif
                         @foreach ($grupolist as $grupo)
                                <option value="{{ $grupo->id }}">{{ $grupo->name }}</option>
                         @endforeach
@@ -100,9 +104,11 @@
                   <div class="form-group">
                       <label for="DireccionInput">Organismos</label>
                       <select name="organismos" class="form-control select2" style="width: 100%;">
-                        <option selected="selected"> {{$organismoss->siglas}}</option>
+                        @if($user->organismo)
+                          <option selected="selected value="{{ $user->organismo->id }}">{{ $user->organismo->siglas }}</option>
+                        @endif
                         @foreach ($organismos as $organismo)
-                               <option value="{{ $organismo->id }}">{{ $organismo->siglas }}</option>
+                          <option value="{{ $organismo->id }}">{{ $organismo->siglas }}</option>
                         @endforeach
                       </select>
                   </div>

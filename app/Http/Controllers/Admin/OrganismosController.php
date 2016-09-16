@@ -47,4 +47,38 @@ class OrganismosController extends Controller
         return redirect('admin/organismos/');
         
     }
+    public function edit($id)
+    {
+        $organismo = Organismo::find($id);
+        return View('admin.organismos.edit', compact('organismo'));
+    }
+
+    public function update($id, Request $request)
+    {
+
+        $this->validate($request, [
+            'nombre' => 'required',
+            'siglas' => 'required',
+            'telefono' => 'numeric',
+            ]);
+
+       //return $request->all();
+        $nombre = $request->input('nombre');//required
+        $siglas = $request->input('siglas');
+        $telefono = $request->input('telefono');
+        $direccion = $request->input('direccion');
+
+
+        $organismos = Organismo::find($id);
+        $organismos->nombre = $nombre;
+        $organismos->siglas = $siglas;
+        $organismos->telefono = $telefono;
+        $organismos->direccion = $direccion;
+
+        $organismos->save();
+        
+
+        return redirect('admin/organismos/');
+        
+    }
 }

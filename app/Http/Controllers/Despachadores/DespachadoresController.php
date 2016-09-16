@@ -6,14 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Contacto;
 use App\Models\User;
 use App\Models\Caso;
+use App\Models\Organismo;
+use App\Models\Cuadrante;
 use App\Models\Direccion;
+use App\Models\Motivo;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Guard;
 use Carbon\Carbon;
+use Yajra\Datatables\Facades\Datatables;
 
 class DespachadoresController extends Controller
 {
+    public function __construct(Guard $auth)
+    {
+        //$this->middleware('auth');
+         $this->auth = $auth;
+    }   
     public function index()
     {
     	$contacto = Contacto::orderBy('id','desc')->paginate(15);
@@ -23,12 +33,12 @@ class DespachadoresController extends Controller
             print($contactos->organismo->siglas);
         }
         */
-        return view('despachadores.index',compact('contacto'));
+        return view('despachadores.index2',compact('contacto'));
     }
     public function show($id)
     {
         $contacto = Contacto::find($id);
-        $organismos = $contacto->organismos->first();
+        $organismos = Organismo::all();
         //$organismos = Organismo::with('contactos')->where('contactos_id',$id)->first();;
         $user = Auth::id();
         $casos = Caso::where('user_id',$user)->orderBy('id','desc')->first();
@@ -46,7 +56,8 @@ class DespachadoresController extends Controller
         $observacion = $request->input('observacion');//required
         $contactoh = $request->input('contactoh');//required
         $status = $request->input('status');//required
-       // return $statush;  //defaut  0
+        $cuadrante = $request->input('cuadrante');
+        $motivo = $request->input('motivos');
 
 
         //$fecha = Carbon::now()->toDateTimeString();
@@ -61,24 +72,24 @@ class DespachadoresController extends Controller
             //$llamada = Llamada::find();
             switch ($submit) {
                 case 'efectivo':
-                    Caso::where("user_id", $user)->increment("efectivos");
+                    Caso::where("user_id", $user)->where('created_at','>=', Carbon::today())->increment("efectivos");
                     $users->casos()->save($casos);
                     break;
                 case 'sinefecto':
-                    Caso::where("user_id", $user)->increment("sinefecto");
+                    Caso::where("user_id", $user)->where('created_at','>=', Carbon::today())->increment("sinefecto");
                     $users->casos()->save($casos);
                     break;
                 case 'noatendida':
                     //$llamadas->increment('quejas');
-                    Caso::where("user_id", $user)->increment("noatendida");
+                    Caso::where("user_id", $user)->where('created_at','>=', Carbon::today())->increment("noatendida");
                     $users->casos()->save($casos);
                     break;
                 case 'repetida':                        
-                    Caso::where("user_id", $user)->increment("repetida");
+                    Caso::where("user_id", $user)->where('created_at','>=', Carbon::today())->increment("repetida");
                     $users->casos()->save($casos);
                     break;
                 case 'apoyo':                        
-                    Caso::where("user_id", $user)->increment("apoyo");
+                    Caso::where("user_id", $user)->where('created_at','>=', Carbon::today())->increment("apoyo");
                     $users->casos()->save($casos);
                     break;
                 default:
@@ -99,7 +110,7 @@ class DespachadoresController extends Controller
                 case 'sinefecto':
                     $llamada->sinefecto = 1;
                     $users->casos()->save($caso);
-                    return redirect('admin/despacho');
+                    //return redirect('admin/despacho');
                     break;
                 case 'noatendida':
                     $caso->noatendida = 1;
@@ -129,6 +140,17 @@ class DespachadoresController extends Controller
             $direccion = Direccion::find($direccionh);
             $direccion->observacion = $observacion;
             $direccion->save();
+            $contactos = Contacto::find($contactoh);
+            if ($cuadrante) {
+                $cuadrantes = Cuadrante::find($cuadrante);
+                $cuadrantes->contactos()->attach($contactos);
+                if ($motivo) {
+                    $motivos = Motivo::find($motivo);
+                    $cuadrantes = Cuadrante::find($cuadrante);
+                    $cuadrantes->motivos()->attach($motivos); 
+                }
+
+            }
             return redirect('admin/despacho');
         }
         else{
@@ -136,20 +158,80 @@ class DespachadoresController extends Controller
             $contactos->status ='1';
             $contactos->save();
 
-
             $users = User::find($user);
 
             $users->contactos()->attach($contactos);
-
-            
 
             $direccion = Direccion::find($direccionh);
             $direccion->observacion = $observacion;
             $direccion->save();
             
-
+            if ($cuadrante) {
+                $cuadrantes = Cuadrante::find($cuadrante);
+                $cuadrantes->contactos()->attach($contactos);
+                if ($motivo) {
+                    $motivos = Motivo::find($motivo);
+                    $cuadrantes = Cuadrante::find($cuadrante);
+                    $cuadrantes->motivos()->attach($motivos); 
+                }
+            }
             return redirect('admin/despacho');
         }
     
     }
+    public function getUsers(){
+        $organismo = $this->auth->user()->organismo_id;
+        switch ($organismo){
+            case '10':
+                # 171
+                $organismos = Organismo::find($organismo);
+                $org = $organismos->contactos()->with('motivo','user','direccion')->get();
+                return Datatables::of($org)->addColumn('organismos', $organismos->siglas)->make(true);
+
+            break;
+            case '1':
+                 # polifalcon
+                $organismos = Organismo::find($organismo);
+                $org = $organismos->contactos()->with('motivo','user','direccion')->get();
+                return Datatables::of($org)->addColumn('organismos', $organismos->siglas)->make(true);
+            break;
+            case '15':
+                # bomberos
+                $organismos = Organismo::find($organismo);
+                $org = $organismos->contactos()->with('motivo','user','direccion')->get();
+                return Datatables::of($org)->addColumn('organismos', $organismos->siglas)->make(true);
+            break;
+            case '14':
+               # protecion civil
+                $organismos = Organismo::find($organismo);
+                $org = $organismos->contactos()->with('motivo','user','direccion')->get();
+                return Datatables::of($org)->addColumn('organismos', $organismos->siglas)->make(true);
+            break;
+            default:
+                return redirect()->to('/');
+                break;
+        }
+
+    }
+    public function getCuadrante(Request $request)
+    {
+
+    $input = $request->input('cuadrantes');
+    $organismos = $request->input('organismos');  
+    //return $organismos;
+    $parroquias = Cuadrante::where('municipio_id',$input)->lists('sectores', 'id');
+    return $parroquias;
+        
+    }
+    public function getCuadranteFind(Request $request)
+    {
+
+    $input = $request->input('cuadrante');
+    //$organismos = $request->input('organismos');  
+    //return $organismos;
+    $parroquias = Cuadrante::find($input);
+    return $parroquias;
+        
+    }
+
 }

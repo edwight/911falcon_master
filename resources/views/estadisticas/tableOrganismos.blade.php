@@ -1,17 +1,28 @@
 @extends('layouts.master')
+@section('css')
+<!-- daterange picker -->
+   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">
 
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="{{ asset('plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="{{ asset('plugins/timepicker/bootstrap-timepicker.min.css') }}">
+
+@endsection
 @section('content')
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Tabla Grupos 
-        <small>advanced tables</small>
+        Reporte Organismos
+        <small>Total</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li><a href="#">Admin</a></li>
-        <li class="active">Tabla Grupo</li>
+        <li class="active">Reporte Organismos</li>
       </ol>
     </section>
 
@@ -22,28 +33,50 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-xs-12">
                 <div class="box-header">
+                <div class="btn-group" role="group" aria-label="...">
                   <a href="{{ URL::to('admin/reporte/organismos/hoy') }}">
-                            <button type="button" class="btn btn-primary">Reporte de Hoy</button></a>
-                  <a href="{{ URL::to('admin/reporte/organismos/mensual') }}">
-                            <button type="button" class="btn btn-primary">Reporte Mensual</button></a>
+                    <button type="button" class="btn btn-default">Reporte Hoy</button>
+                  </a>
                   <a href="{{ URL::to('admin/reporte/organismos/total') }}">
-                            <button type="button" class="btn btn-primary">Reporte Total</button></a>
+                    <button type="button" class="btn btn-default">Reporte Total</button>
+                  </a>
                 </div>
-                <div class="col-xs-6">
-                  <div class="form-group">
-                    <label>Date range:</label>
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="reservation">
-                      </div>
-                    <!-- /.input group -->
+              </div>
+              {!! Form::open(array('action'=>'Estadisticas\EstadisticasController@organismosReporteBusqueda', 'method' => 'post')) !!} 
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                      <input type="text" name="fechaStart" class="form-control pull-right" id="datepickerStart">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                      <input type="text" name="fechaEnd" class="form-control pull-right" id="datepickerEnd">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+              </div>
+
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                  <!-- /.input group -->
                   </div>
                 </div>
               </div>
+            {!! Form::close() !!}
             </div>
 
             <!-- /.box-header -->
@@ -93,33 +126,63 @@
 @endsection
 
 @section('javascript')
-<!-- jQuery 2.2.3 -->
-<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- page script -->
-<script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
+  <!-- date-range-picker -->
+<script src="{{ asset('/plugins/daterangepicker/moment.min.js') }}"></script>
+<script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+<!-- bootstrap color picker -->
+<script src="{{ asset('/plugins/colorpicker/bootstrap-colorpicker.min.js') }}"></script>
+<!-- bootstrap time picker -->
+<script src="{{ asset('/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+<!-- SlimScroll 1.3.0 -->
+<script type="text/javascript">
+$(function () {
+  $('#reservation').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
     });
-  });
+      //Date range picker with time picker
+  $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM-DD-YYYY h:mm A'});
+      //Date range as a button
+  $('#daterange-btn').daterangepicker(
+    {
+    ranges: {
+      'Today': [moment(), moment()],
+      'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+      'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+      'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+      'This Month': [moment().startOf('month'), moment().endOf('month')],
+      'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+      },
+    startDate: moment().subtract(29, 'days'),
+    endDate: moment()
+    },
+        function (start, end) {
+          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+      );
+
+      //Date picker
+     
+
+      // Getter
+      //var dateFormat = $( "#datepicker" ).val();
+      // Setter
+      $( "#datepickerStart").datepicker({
+          format: 'yyyy-mm-dd',
+       });
+      $( "#datepickerEnd").datepicker({
+          format: 'yyyy-mm-dd',
+       });
+
+      $(".timepicker").timepicker({
+        showInputs: false
+      });
+
+});
 </script>
 @endsection
+

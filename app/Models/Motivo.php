@@ -43,5 +43,8 @@ class Motivo extends Model
     {
         return $this->belongsToMany('App\Models\Localidad');
     }
+    public function Cuadrantes(){
+        return $this->belongsToMany('App\Models\Cuadrante')->withTimestamps();
+    }
 
 }

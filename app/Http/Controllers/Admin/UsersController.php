@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Models\Grupo;
 use App\Models\Organismo;
 use App\Http\Controllers\Controller;
+use Yajra\Datatables\Facades\Datatables;
+
+use Illuminate\Support\Facades\File;
 
 class UsersController extends Controller
 {
@@ -23,6 +26,12 @@ class UsersController extends Controller
         $supervisor = User::where('roles','supervisor')->get()->count();
 		return View('admin.user.index', compact('user','admin','despachador','operador','supervisor'));
 	}
+    public function getList()
+    {
+        $users = User::all();
+        ///$orders = Organismo::find(1)->with('contactos','contactos.motivo','contactos.direccion')->get();
+        return Datatables::of($users)->make(true);
+    }
 	public function create()
 	{
 		$grupolist = Grupo::all();
@@ -40,6 +49,7 @@ class UsersController extends Controller
             'phone' => 'numeric|required|unique:users',
             'type' => 'required',
             'grupos' => 'required',
+            'organismos' => 'required',
             ]);
 
 
@@ -52,19 +62,8 @@ class UsersController extends Controller
         $organismos = $request->input('organismos');
         $roles = $request->input('type');
         $password = $request->input('password');
-        $photo = $request->file('photo');
+        $file = $request->file('photo');
         //$sexo = '0';
-        /*
-        if (empty($photo))
-        {
-            $fileName = $photo->getClientOriginalName();
-            $filename = Str::slug($fileName).'.'.File::extension($fileName);
-            $photo->move('public/imgs/users', $filename);
-        }
-        else{
-            $filename ='public/imgs/users/avatar.png';
-        }
-        */
         
         $user = New User;
         $user->name = $name;
@@ -76,15 +75,17 @@ class UsersController extends Controller
         //$user->photo = $filename;
         $user->password = $password;
         $user->phone = $phone;
+        $user->organismo_id = $organismos;
+        if ($file)
+        {
+            $file->move('public/imgs/users/', $file->getClientOriginalName());
+            $user->foto = '/imgs/users/'.$file->getClientOriginalName();
+            $user->save();
+        }
         $user->save();
 
         $grupos = Grupo::find($grupo);
 		$grupos->users()->save($user);
-        
-        $organismo = Organismo::find($organismos);
-
-        $organismo->users()->attach($user);
-        
         return redirect('admin/users/');
         
     }
@@ -93,8 +94,7 @@ class UsersController extends Controller
 		$user = User::findOrFail($id);
         $grupolist = Grupo::all();
         $organismos = Organismo::all();
-        $organismoss = $user->organismos->first();
-		return View('admin.user.edit', compact('user','grupolist','organismos','organismoss'));
+		return View('admin.user.edit', compact('user','grupolist','organismos'));
 	}
 	public function show($id)
 	{
@@ -107,7 +107,6 @@ class UsersController extends Controller
         
         $this->validate($request, [
             'type' => 'required',
-            'grupos' => 'required',
             ]);
 
         /*
@@ -130,7 +129,8 @@ class UsersController extends Controller
         $organismos = $request->input('organismos');
         $roles = $request->input('type');
         $password = $request->input('password');
-        $photo = $request->file('photo');
+        $file = $request->file('photo');
+        //$file = Request::file('filefield');
         //$sexo = '0';
 
         $user = User::findOrFail($id);
@@ -139,14 +139,28 @@ class UsersController extends Controller
         $user->roles = $roles;
         //$user->sexo = $sexo;
         $user->email = $cedula;
-        //$user->photo = $filename;
-        //$user->grupos->name = $grupo;
         $user->password = $password;
         $user->phone = $phone;
+        $user->organismo_id = $organismos;
+        if($file)
+        {
+            //$fileName = $photo->getClientOriginalName();
+            //$photo->move('public/imgs/users/', $fileName);
+            
+            //$extension = $file->getClientOriginalExtension();
+            //Storage::disk('local')->put($file->getClientOriginalName().'.'.$extension,  File::get($file));
+            $file->move('public/imgs/users/', $file->getClientOriginalName());
+            $user->foto = '/imgs/users/'.$file->getClientOriginalName();
+            $user->save();
+        }
         $user->save();
 
-        //$grupos = Grupo::find($grupo);
-        //$grupos->users()->save($user);
+        if($grupo)
+        {
+            $grupos = Grupo::find($grupo);
+            $grupos->users()->save($user);
+        }
+        //
 
         /*
         if ($organismos) {

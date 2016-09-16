@@ -5,13 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Advanced Form Elements
-        <small>Preview</small>
+        Modulo Supervisión
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Forms</a></li>
-        <li class="active">Advanced Elements</li>
+        <li class="active">Modulo de Supervisión</li>
       </ol>
     </section>
 
@@ -21,7 +20,7 @@
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Select2</h3>
+          <h3 class="box-title">Supervisor</h3>
 
              <div class="panel-body">
                 @if (count($errors) > 0)
@@ -138,7 +137,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                     <label for="DireccionInput">Organismos</label>
-                    <select id="organismo" class="form-control " name="organismo" style="width: 100%;">
+                    <select id="organismo" class="form-control" name="organismo" style="width: 100%;">
                     <option selected="selected" value="{{$organismos->id}}">{{$organismos->siglas}}</option>
                       @foreach ($organismoss as $organismo)
                            <option value="{{ $organismo->id }}">{{ $organismo->siglas }}</option>

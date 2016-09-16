@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -16,6 +15,7 @@ Route::group(
     array('prefix' => 'admin', 'middleware' => ['auth','admin']), 
     function() { 
         Route::resource('recepcion', 'Operadores\RecepcionController');
+        Route::get('api/listusers', 'Admin\UsersController@getList');
         Route::resource('despacho', 'Despachadores\DespachadoresController');
          
         Route::post('supervisores/despacho/busqueda','Supervisores\SupervisoresController@busquedaDespacho');
@@ -58,6 +58,8 @@ Route::group(
         //Route::resource('contactos', 'Admin\ContactosController');
         //Route::resource('contacto', 'Operadores\ContactoController');//admin
         Route::get('reporte/organismos/total','Estadisticas\EstadisticasController@organismosReporteTotal');
+        Route::post('reporte/organismos/busqueda}','Estadisticas\EstadisticasController@organismosReporteBusqueda');
+
         Route::get('reporte/organismos/hoy','Estadisticas\EstadisticasController@organismosReporteHoy');
         Route::get('reporte/motivos/total','Estadisticas\EstadisticasController@MotivosReporteTotal');
         Route::get('reporte/motivos/hoy','Estadisticas\EstadisticasController@MotivosReporteHoy');
@@ -66,8 +68,13 @@ Route::group(
         Route::get('reporte/municipios/total','Estadisticas\EstadisticasController@MunicipiosReporteTotal');
         Route::get('reporte/municipios/hoy','Estadisticas\EstadisticasController@MunicipiosReportehoy');
 
-        Route::get('admin/reporte/llamadas/total','Estadisticas\EstadisticasController@LlamadasReporteTotal');
-        Route::get('admin/reporte/casos/total','Estadisticas\EstadisticasController@OrganismosEstadosReporteTotal');
+        Route::get('reporte/cuadrante_motivos','Estadisticas\EstadisticasController@reporteCuadranteMotivos');
+        Route::get('reporte/cuadrante_llamadas','Estadisticas\EstadisticasController@reporteCuadranteContactos');
+        //Route::get('reporte/cuadrante/{id}','Estadisticas\EstadisticasController@cuadranteDetail');
+
+        Route::get('reporte/llamadas/total','Estadisticas\EstadisticasController@LlamadasReporteTotal');
+        Route::get('reporte/casos/total','Estadisticas\EstadisticasController@OrganismosEstadosReporteTotal');
+        Route::get('supervisores/api/users', 'Despachadores\DespachadoresController@getUsers');
     }
 );
 
@@ -92,10 +99,23 @@ Route::group(
 
 Route::get('api/dropdown/municipio','Operadores\RecepcionController@getMunicipio');
 Route::get('api/dropdown/parroquia','Operadores\RecepcionController@parroquia');
-Route::get('api/dropdown/cuadrante','Operadores\RecepcionController@getCuadrante');
+Route::get('api/dropdown/cuadrante','Despachadores\DespachadoresController@getCuadrante');
+Route::get('api/dropdown/cuadrante/find','Despachadores\DespachadoresController@getCuadranteFind');
+Route::get('api/dropdown/localidad','Operadores\RecepcionController@getLocalidad');
+
+
+Route::get('admin/api/users', 'Despachadores\DespachadoresController@getUsers');
 //Route::get('admin/recepcion/api/municipio/json','Operadores\RecepcionController@municipio');
 
 
+
+Route::get('listado_graficas', 'GraficasController@index');
+Route::get('api/grafica_registros/{anio}/{mes}', 'GraficasController@registros_mes');
+Route::get('grafica_publicaciones', 'GraficasController@total_publicaciones');
+
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+
+
+
+ Route::get('admin/reporte/cuadrante/{id}','Estadisticas\EstadisticasController@cuadranteMotivos');

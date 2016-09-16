@@ -45,6 +45,11 @@
             <li><a href="{{ asset('/') }}"><i class="fa fa-circle-o"></i>Principal</a></li>
           </ul>
         </li>
+        @if( Auth::check())
+        <li><a href="{{ asset('admin/recepcion/create') }}"><i class="fa fa-phone"></i> <span>Recepcion de llamadas</span></a></li>
+
+        <li><a href="{{ asset('admin/despacho') }}"><i class="fa fa-shield"></i> <span>Despacho de llamadas</span></a></li>
+        @endif
         @if(Auth::check() && Auth::user()->roles == 'admin')
         <li class="treeview">
           <a href="#">
@@ -89,27 +94,7 @@
             <li><a href="{{ asset('admin/motivos/create') }}"><i class="fa fa-circle-o"></i>Crear Organismos</a></li>
           </ul>
         </li>
-
-        @endif
-
-        @if( Auth::check())
-        <li><a href="{{ asset('admin/recepcion/create') }}"><i class="fa fa-book"></i> <span>Recepcion de llamadas</span></a></li>
-
-        <li><a href="{{ asset('admin/despacho') }}"><i class="fa fa-book"></i> <span>Despacho de llamadas</span></a></li>
- 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-book"></i>
-            <span>Modulo de Supervisores</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ asset('admin/supervisores/despacho') }}"><i class="fa fa-circle-o"></i> despacho</a></li>
-          </ul>
-        </li>
-
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-table"></i>
@@ -125,10 +110,47 @@
             <li><a href="{{ asset('/admin/reporte/municipios/total') }}"><i class="fa fa-circle-o"></i>Municipios</a></li>
             <li><a href="{{ asset('/admin/reporte/llamadas/total') }}"><i class="fa fa-circle-o"></i>Llamadas</a></li>
             <li><a href="{{ asset('/admin/reporte/casos/total') }}"><i class="fa fa-circle-o"></i>Casos</a></li>
+            <li><a href="{{ asset('/admin/reporte/cuadrante_motivos') }}"><i class="fa fa-circle-o"></i>Cuadrantes Motivos</a></li>
+            <li><a href="{{ asset('/admin/reporte/cuadrante_llamadas') }}"><i class="fa fa-circle-o"></i>Cuadrantes Llamadas</a></li>
            
           </ul>
         </li>
         @endif
+
+        @if(Auth::check() && Auth::user()->roles == 'supervisor')
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-eye"></i>
+            <span>Modulo de Supervisores</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ asset('admin/supervisores/despacho') }}"><i class="fa fa-circle-o"></i> despacho</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i>
+            <span>Reportes</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ asset('/admin/reporte/organismos/total') }}"><i class="fa fa-circle-o"></i>Organismos</a></li>
+            <li><a href="{{ asset('/admin/reporte/motivos/total') }}"><i class="fa fa-circle-o"></i>Motivos</a></li>
+            <li><a href="{{ asset('/admin/reporte/estados/total') }}"><i class="fa fa-circle-o"></i>Estados</a></li>
+            <li><a href="{{ asset('/admin/reporte/municipios/total') }}"><i class="fa fa-circle-o"></i>Municipios</a></li>
+            <li><a href="{{ asset('/admin/reporte/llamadas/total') }}"><i class="fa fa-circle-o"></i>Llamadas</a></li>
+            <li><a href="{{ asset('/admin/reporte/casos/total') }}"><i class="fa fa-circle-o"></i>Casos</a></li>
+            <li><a href="{{ asset('/admin/reporte/cuadrante') }}"><i class="fa fa-circle-o"></i>Cuadrantes Motivos</a></li>
+           
+          </ul>
+        </li>
+        @endif
+
         <li><a href="#"><i class="fa fa-book"></i> <span>Documentación</span></a></li>
       </ul>
     </section>

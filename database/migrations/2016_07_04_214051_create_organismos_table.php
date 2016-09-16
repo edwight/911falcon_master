@@ -78,18 +78,6 @@ class CreateOrganismosTable extends Migration
             //$table->foreign('organismo_id')->references('id')->on('organismos');
             
         });
-
-        Schema::create('organismo_user', function(Blueprint $table){
-            $table->engine = 'InnoDB';
-            $table->Increments('id')->unsigned();
-            $table->boolean('activo');
-            $table->integer('organismo_id')->unsigned()->nullable();
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->timestamps(); 
-            //$table->foreign('contacto_id')->references('id')->on('contactos');
-            //$table->foreign('organismo_id')->references('id')->on('organismos');
-            
-        });
     }
     /**
      * Reverse the migrations.

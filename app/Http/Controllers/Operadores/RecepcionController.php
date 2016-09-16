@@ -47,7 +47,7 @@ class RecepcionController extends Controller
         $municipios = Municipio::all();
         $parroquias = Parroquia::all();
         $organismos = Organismo::all();
-        $motivos = Motivo::all();
+        $motivos = Motivo::where('activo','1')->get();
         $estados = Estado::all();
 
         $user = Auth::id();
@@ -82,24 +82,24 @@ class RecepcionController extends Controller
                 case 'registrada':
                     //$llamadas->increment('registradas');
                     //$llamadas->registradas = +1;
-                    Llamada::where("user_id", $user)->increment("registradas");
+                    Llamada::where("user_id", $user)->where('created_at','>=', Carbon::today())->increment("registradas");
                     //$llamada->registradas = 1;
                     $users->llamadas()->save($llamadas);
                     break;
                 case 'falsas':
                     //$llamadas->increment('falsas');
-                    Llamada::where("user_id", $user)->increment("falsas");
+                    Llamada::where("user_id", $user)->where('created_at','>=', Carbon::today())->increment("falsas");
                     $users->llamadas()->save($llamadas);
                     return redirect('admin/recepcion/create');
                     break;
                 case 'sabotaje':
                     //$llamadas->increment('quejas');
-                    Llamada::where("user_id", $user)->increment("sabotaje");
+                    Llamada::where("user_id", $user)->where('created_at','>=', Carbon::today())->increment("sabotaje");
                     $users->llamadas()->save($llamadas);
                     return redirect('admin/recepcion/create');
                     break;
                 case 'informativas':                        
-                    Llamada::where("user_id", $user)->increment("informativas");
+                    Llamada::where("user_id", $user)->where('created_at','>=', Carbon::today())->increment("informativas");
                     $users->llamadas()->save($llamadas);
                     break;
 
@@ -148,6 +148,8 @@ class RecepcionController extends Controller
             'motivos' => 'required',
             'organismo' => 'required',
             'direccion' => 'required',
+            'descripcion' => 'required',
+            'motivos' => 'required',
             ]);
         
        //return $request->all();
@@ -189,13 +191,16 @@ class RecepcionController extends Controller
         $users->contactos()->attach($contacto);
         //$estado = Estado::find($estado);
         
+        //cuadrantes
+        
         
         $estados = Estado::find($estado);
         $estados->contactos()->save($contacto);
-
-        $municipios = Municipio::find($municipio);
-        $municipios->contactos()->save($contacto);
-        if ($parroquia) {
+        if (isset($municipio)) {
+            $municipios = Municipio::find($municipio);
+            $municipios->contactos()->save($contacto);
+        }
+        if (isset($parroquia)) {
             $parroquias = Parroquia::find($parroquia);
             $parroquias->contactos()->save($contacto);
         }
@@ -212,6 +217,7 @@ class RecepcionController extends Controller
 
         $direccion->contactos()->save($contacto);
         
+        //contacto
         if (isset($organismo)) 
             {
                 foreach ($organismo as $organismoId) 
@@ -255,7 +261,7 @@ class RecepcionController extends Controller
             }
         }
            //organismos parroquia
-        if(isset($organismo)) 
+        if(isset($organismo) && isset($parroquia)) 
         {
             foreach ($organismo as $organismoId) 
             {
@@ -298,8 +304,12 @@ class RecepcionController extends Controller
         $motivos = Motivo::find($motivo);
         $motivos->municipios()->attach($municipios);
         
-        $motivos = Motivo::find($motivo);
-        $motivos->parroquias()->attach($parroquias);
+        if(isset($motivo) && isset($parroquia)) 
+        {
+            $motivos = Motivo::find($motivo);
+            $motivos->parroquias()->attach($parroquias);
+        }
+        
         
 
         /*
@@ -397,9 +407,21 @@ class RecepcionController extends Controller
     {
 
     $input = $request->input('cuadrantes');
-    //$organismos = $request->input('organismos');  
+    $organismos = $request->input('organismos');  
+    //return $organismos;
         $parroquias = Cuadrante::where('municipio_id',$input)->lists('cuadrante', 'id');
         return $parroquias;
+    }
+    public function getLocalidad(Request $request)
+    {
+
+    $input = $request->input('option');
+    $parroquia = $request->input('parroquia');
+    //http://localhost:8000/api/dropdown/localidad?option=1&parroquia=3
+    return ($input.' : '.$parroquia);
+    //return $localidad;
+        $localidades = Localidad::where('parroquia_id',$input)->lists('localidad', 'id');
+        return $localidades;
         
     }
 }

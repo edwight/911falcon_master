@@ -25,9 +25,12 @@ class Contacto extends Model
         return $this->belongsTo('App\Models\Municipio');
     }
      public function parroquia(){
-        return $this->belongsTo('App\Models\parroquia');
+        return $this->belongsTo('App\Models\Parroquia');
     }
     public function estado(){
         return $this->belongsTo('App\Models\Estado');
+    }
+    public function cuadrantes(){
+        return $this->belongsToMany('App\Models\Cuadrante')->withTimestamps();
     }
 }

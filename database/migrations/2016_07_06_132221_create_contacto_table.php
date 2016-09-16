@@ -28,6 +28,7 @@ class CreateContactoTable extends Migration
             $table->Integer('localidad_id')->unsigned()->nullable();
             $table->Integer('direccion_id')->unsigned();
             $table->Integer('motivo_id')->unsigned();
+            //$table->Integer('cuadrante_id')->unsigned()->nullable();
             //$table->Integer('user_id')->unsigned();
             $table->dateTime('fecha_at');
             $table->timestamps();

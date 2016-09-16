@@ -161,6 +161,12 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
 
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+            //DATATABLE
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        //PDF
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ],
 
     /*
@@ -209,6 +215,12 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

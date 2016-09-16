@@ -12,122 +12,54 @@ class MotivosTableSeeder extends Seeder
     public function run()
     {
         
-        Motivo::create(['motivo' => 'robo a entidad Comercial']);
-        Motivo::create(['motivo' => 'Robo a mano armada']);
-        Motivo::create(['motivo' => 'Robo a Persona']);
-        Motivo::create(['motivo' => 'Robo a Viviendas']);
-        Motivo::create(['motivo' => 'Robo a Vehiculo']);
-        Motivo::create(['motivo' => 'Robo']);
-        Motivo::create(['motivo' => 'Hurto frustrado']);
-        Motivo::create(['motivo' => 'Hurto de vehiculo']);
-        Motivo::create(['motivo' => 'Hurto de moto']);
-        Motivo::create(['motivo' => 'Hurto']);
-
-        Motivo::create(['motivo' => 'Reporte']);
-        Motivo::create(['motivo' => 'Reporte de Persona']);
-
-        Motivo::create(['motivo' => 'Homicidio con arma blanca']);
-        Motivo::create(['motivo' => 'Homicidio con arma de fuego']);
-        Motivo::create(['motivo' => 'Homicidio culposo por accidente de transito']);
-        Motivo::create(['motivo' => 'Homicidio doloso por asfixia']);
-        Motivo::create(['motivo' => 'Homicidio doloso por inmersion']);
-        Motivo::create(['motivo' => 'Homicidio por objetos contundente']);
-
-        Motivo::create(['motivo' => 'Incendios forestales']);
-        Motivo::create(['motivo' => 'Incendios']);
-
-        Motivo::create(['motivo' => 'Lesiones leves']);
-        Motivo::create(['motivo' => 'Lesiones por accidente de transito']);
-        Motivo::create(['motivo' => 'Lesiones por arma blanca']);
-        Motivo::create(['motivo' => 'Lesiones por arma de fuego']);
-        Motivo::create(['motivo' => 'Lesiones por objetos contundentes']);
-
-        Motivo::create(['motivo' => 'Accidente de transito sin lesionados']);
-
-
-        Motivo::create(['motivo' => 'Alarma de Banco']);
-        Motivo::create(['motivo' => 'Riña Colectiva']);
-
+        Motivo::create(['motivo' => 'Accidente de transito (Choque Con Objeto Fijo)','activo'=>'1']);
+        Motivo::create(['motivo' => 'Accidente de transito (Daños Materiales)','activo'=>'1']);
+        Motivo::create(['motivo' => 'Accidente de transito (Arrollamiento)','activo'=>'1']);
+        Motivo::create(['motivo' => 'Accidente de transito (Colision Entre vehiculos)','activo'=>'1']);
+        Motivo::create(['motivo' => 'Accidente de transito (Deslizamiento de Moto)','activo'=>'1']);
+        Motivo::create(['motivo' => 'Accidente de transito (volcamiento)','activo'=>'1']);
+        Motivo::create(['motivo' => 'Accidente tipo aereo','activo'=>'1']);
+        Motivo::create(['motivo' => 'Alarma de Banco','activo'=>'1']);
+        Motivo::create(['motivo' => 'Alteracion del Orden Publico','activo'=>'1']);
+        Motivo::create(['motivo' => 'Ataque Animal','activo'=>'1']);
+        Motivo::create(['motivo' => 'Cadaver','activo'=>'1']);
+        Motivo::create(['motivo' => 'Contaminación Sónica','activo'=>'1']);
+        Motivo::create(['motivo' => 'Emergencia Medicas','activo'=>'1']);
+        Motivo::create(['motivo' => 'Estrutura en Peligro','activo'=>'1']);
+        Motivo::create(['motivo' => 'Fallecido','activo'=>'1']);
+        Motivo::create(['motivo' => 'Fuga de Gas','activo'=>'1']);
+        Motivo::create(['motivo' => 'Herido por Arma Blanca','activo'=>'1']);
+        Motivo::create(['motivo' => 'Herido por Arma de fuego','activo'=>'1']);
+        Motivo::create(['motivo' => 'Herido por Objeto Contundente','activo'=>'1']);
+        Motivo::create(['motivo' => 'Hidrofalcón','activo'=>'1']);
+        Motivo::create(['motivo' => 'Hurto','activo'=>'1']);
+        Motivo::create(['motivo' => 'Incendio de Estrutura','activo'=>'1']);
+        Motivo::create(['motivo' => 'Incendio de Maleza','activo'=>'1']);
+        Motivo::create(['motivo' => 'Informativa','activo'=>'1']);
+        Motivo::create(['motivo' => 'Insulto','activo'=>'1']);
+        Motivo::create(['motivo' => 'Invasión','activo'=>'1']);
+        Motivo::create(['motivo' => 'Manifestación Pácifica','activo'=>'1']);
+        Motivo::create(['motivo' => 'Manifestación Violenta','activo'=>'1']);
+        Motivo::create(['motivo' => 'Obstruccion en la via','activo'=>'1']);
+        Motivo::create(['motivo' => 'Otros','activo'=>'1']);
+        Motivo::create(['motivo' => 'Persona demente','activo'=>'1']);
+        Motivo::create(['motivo' => 'Persona en Peligro','activo'=>'1']);
+        Motivo::create(['motivo' => 'Persona en Sospechosa','activo'=>'1']);
+        Motivo::create(['motivo' => 'Reporte','activo'=>'1']);
+        Motivo::create(['motivo' => 'Reporte de Personas','activo'=>'1']);
+        Motivo::create(['motivo' => 'Riña Colectiva','activo'=>'1']);
+        Motivo::create(['motivo' => 'Robo a Entidad Comercial','activo'=>'1']);
+        Motivo::create(['motivo' => 'Robo a Institución','activo'=>'1']);
+        Motivo::create(['motivo' => 'Robo a Persona','activo'=>'1']);
+        Motivo::create(['motivo' => 'Robo a Vivienda','activo'=>'1']);
+        Motivo::create(['motivo' => 'Robo a Vehículo','activo'=>'1']);
+        Motivo::create(['motivo' => 'Sabotaje','activo'=>'1']);
+        Motivo::create(['motivo' => 'Situación Sospechosa','activo'=>'1']);
+        Motivo::create(['motivo' => 'Traslado Medico','activo'=>'1']);
+        Motivo::create(['motivo' => 'Vehículo Sospechoso','activo'=>'1']);
+        Motivo::create(['motivo' => 'Verificacion Siipol (laminada)','activo'=>'1']);
+        Motivo::create(['motivo' => 'Verificacion Siipol (vehiculo)','activo'=>'1']);
+        Motivo::create(['motivo' => 'Violencia de Género','activo'=>'1']);
         
-        Motivo::create(['motivo' => 'Verificacion Siipol']);
-
-        
-        Motivo::create(['motivo' => 'Persona Sospechosa']);
-        Motivo::create(['motivo' => 'Vehiculo Sospechosa']);
-        Motivo::create(['motivo' => 'Hidrofalcon']);
-        Motivo::create(['motivo' => 'Obtaculo en Via']);
-        Motivo::create(['motivo' => 'Informativa']);
-        Motivo::create(['motivo' => 'Insulto']);
-        Motivo::create(['motivo' => 'Contaminacion Sonica']);
-        Motivo::create(['motivo' => 'Estrutura en Peligro ']);
-        Motivo::create(['motivo' => 'Emergencia Medica']);
-        Motivo::create(['motivo' => 'Traslado Medica']);
-        Motivo::create(['motivo' => 'Ataque Animal']);
-        
-        Motivo::create(['motivo' => 'Abandonada']);
-        Motivo::create(['motivo' => 'Invasion']);
-        
-        Motivo::create(['motivo' => 'Delito contra niño']);
-        Motivo::create(['motivo' => 'Ocultamiento de objetos provenientes del delito']);
-        Motivo::create(['motivo' => 'Perturbacion del orden publico']);
-
-        Motivo::create(['motivo' => 'Plagio']);
-        Motivo::create(['motivo' => 'Porte ilicito de arma de fuego']);
-        Motivo::create(['motivo' => 'Resistencia a la autoridad']);
-        
-        Motivo::create(['motivo' => 'Sabotaje']);
-        
-       
-        Motivo::create(['motivo' => 'Indocumentados']);
-
-        Motivo::create(['motivo' => 'Soborno a funcionario publico']);
-        Motivo::create(['motivo' => 'Violencia de genero']);
-        Motivo::create(['motivo' => 'Trafico de droga']);
-        Motivo::create(['motivo' => 'Violacion']);
-        Motivo::create(['motivo' => 'Abigeato']);
-        Motivo::create(['motivo' => 'Persona extraviada']);
-        
-        Motivo::create(['motivo' => 'Ilicito fiscal']);
-        Motivo::create(['motivo' => 'Desvalijamiento']);
-        Motivo::create(['motivo' => 'Aprovechamiento de vehiculo proveniente del delito']);
-        Motivo::create(['motivo' => 'Aprovechamiento de Moto proveniente del delito']);
-        Motivo::create(['motivo' => 'Movimientos de tierras']);
-
-        Motivo::create(['motivo' => 'Quema']);
-        Motivo::create(['motivo' => 'Caceria ilegal']);
-        Motivo::create(['motivo' => 'Contaminacion ambiental']);
-        Motivo::create(['motivo' => 'Accidentes acuaticos']);
-        
-        Motivo::create(['motivo' => 'Rescates en agua']);
-        Motivo::create(['motivo' => 'Traslado de ambulancia']);
-        
-        Motivo::create(['motivo' => 'Actos lascivos']);
-        Motivo::create(['motivo' => 'Alteracion de seriales de vehiculo']);
-        Motivo::create(['motivo' => 'Amenaza de muerte']);
-
-        Motivo::create(['motivo' => 'Apropiacion indebida']);
-        Motivo::create(['motivo' => 'Aprovechamiento de cosas provenientes del delito']);
-        Motivo::create(['motivo' => 'Arrollamiento']);
-        Motivo::create(['motivo' => 'Contrabando']);
-        Motivo::create(['motivo' => 'Corrupcion']);
-        Motivo::create(['motivo' => 'Daños a la propiedad']);
-
-        Motivo::create(['motivo' => 'Decomiso de juegos pirotecnicos']);
-        Motivo::create(['motivo' => 'Delito informatico']);
-        Motivo::create(['motivo' => 'Distribucion de droga']);
-        Motivo::create(['motivo' => 'Enriquecimiento ilicito']);
-        Motivo::create(['motivo' => 'Especulacion y acaparamiento']);
-        Motivo::create(['motivo' => 'Estafa']);
-
-        Motivo::create(['motivo' => 'Extorsion']);
-        Motivo::create(['motivo' => 'Forjamiento de documento publico']);
-        Motivo::create(['motivo' => 'Fuga de gas']);
-        
-        
-        
-       
-
-        Motivo::create(['motivo' => 'Incautacion de droga']);
-        Motivo::create(['motivo' => 'Tenencia de droga']);
     }
 }

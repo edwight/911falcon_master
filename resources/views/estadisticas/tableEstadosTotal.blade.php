@@ -44,7 +44,7 @@
            
                 @foreach($estados as $estado) 
                   <th scope="row">{{ $estado->id}}</th>
-                   <td>{{ $estado->entidad }}</td>
+                   <td><a href="#">{{ $estado->entidad }}</a></td>
                       <td>{{ $estado->contactos->count() }}</td>   
                     </tr>  
                 @endforeach

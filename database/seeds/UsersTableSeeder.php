@@ -16,28 +16,28 @@ class UsersTableSeeder extends Seeder
         factory('App\Models\User', 1)->create([
         	'name' => 'edwight',
         	'slug' => 'edwight',
-        	'email' => 'edwardelgado0@gmail.com',
+        	'email' => 'edwardelgado252@gmail.com',
         	'password' => '19252368',
         	'roles' => 'admin',
         	]);
         factory('App\Models\User', 1)->create([
             'name' => 'edwar supervisor',
             'slug' => 'edwar',
-            'email' => 'edwardelgado1@gmail.com',
+            'email' => 'edwardelgado122@gmail.com',
             'password' => '19252368',
             'roles' => 'supervisor',
             ]);
         factory('App\Models\User', 1)->create([
             'name' => 'edwar despachador',
             'slug' => 'edwar',
-            'email' => 'edwardelgado2@gmail.com',
+            'email' => 'edwardelgado222@gmail.com',
             'password' => '19252368',
             'roles' => 'despachador',
             ]);
         factory('App\Models\User', 1)->create([
             'name' => 'edwar operador',
             'slug' => 'edwar',
-            'email' => 'edwardelgado3@gmail.com',
+            'email' => 'edwardelgado322@gmail.com',
             'password' => '19252368',
             'roles' => 'operador',
             ]);

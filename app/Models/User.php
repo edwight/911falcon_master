@@ -43,9 +43,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Caso');
     }
-    public function organismos()
+    public function organismo()
     {
-        return $this->belongsToMany('App\Models\Organismo');
+        return $this->belongsTo('App\Models\Organismo');
     }
     /*
     public function setPasswordAttribute($value)

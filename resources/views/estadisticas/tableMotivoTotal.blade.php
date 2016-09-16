@@ -44,7 +44,7 @@
            
                 @foreach($motivos as $motivo) 
                   <th scope="row">{{ $motivo->id}}</th>
-                   <td>{{ $motivo->motivo }}</td>
+                   <td><a href="#">{{ $motivo->motivo }}</a></td>
                       <td>{{ $motivo->contactos->count() }}</td>   
                     </tr>  
                 @endforeach

@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'supervisor' => \App\Http\Middleware\Supervisor::class,
         'despachador' => \App\Http\Middleware\Despachador::class,
         'operador' => \App\Http\Middleware\Operador::class,
+        'organismo' => \App\Http\Middleware\organismos::class,
     ];
 }

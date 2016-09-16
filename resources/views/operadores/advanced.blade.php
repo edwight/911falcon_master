@@ -6,11 +6,10 @@
     <section class="content-header">
       <h1>
         Recepcion de Llamadas
-        <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="#">Modulo de Llamada</a></li>
         <li class="active">Recepcion de Llamadas</li>
       </ol>
     </section>
@@ -219,13 +218,15 @@
                     </select>
                   </div>
                 <!-- /.form-group -->
+                <!--
                   <div class="form-group">
                     <label for="DireccionInput">Cuadrante</label>
-                    <select id="cuadrante" class="form-control select2" name="cuadrante" style="width: 100%;">
+                    <select id="cuadrante" disabled="" class="form-control select2" name="cuadrante" style="width: 100%;">
                       <option selected="selected">--:--</option>
                       
                     </select>
                   </div>
+                -->
                 <!-- /.form-group -->
                 <!--
                 <div class="form-group">
@@ -256,27 +257,6 @@
               <select name="organismo[]" id="multiselect_to_1" class="form-control" size="8" multiple="multiple"></select>
             </div>
 
-              <!--
-              <div class="col-md-4">
-
-
-              
-                <div class="form-group">
-                    <label for="DireccionInput">Organismos</label>
-                    <select id="organismo"  multiple="multiple" class="form-control select2" name="organismo[]" style="width: 100%;">
-                      @foreach ($organismos as $organismo)
-                        <option value="{{ $organismo->id }}">{{ $organismo->siglas }}</option>
-                      @endforeach
-                    </select>
-                </div>
-
-              
-              </div>
-              -->
-              <!-- /.col -->
-             
-              <!-- /.col -->
-            
           </div>
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <!-- /.box-body -->
@@ -299,15 +279,11 @@
 
 <script src="{{ asset('plugins/multiselect/multiselect.min.js') }}"></script>
 <script charset="utf-8">
-/*
-  $("#series").chained("#mark");
-$("#model").chained("#series");
-*/
 
-$(".organismo").select2({
-  tags: true,
-  tokenSeparators: [',', ' ']
-})
+jQuery(document).ready(function($){
+    //Initialize Select2 Elements
+    $(".select2").select2();
+});
 
 jQuery(document).ready(function($){
     $('#municipio').change(function(){
@@ -324,27 +300,14 @@ jQuery(document).ready(function($){
     });
   });
 
-jQuery(document).ready(function($){
-    $('#municipio').change(function(){
-      $.get("{{ url('api/dropdown/cuadrante')}}", 
-        { cuadrantes: $(this).val() }, 
-        function(data) {
-          var cuadrante = $('#cuadrante');
-          cuadrante.empty();
-          $.each(data, function(index, element) {
-                  cuadrante.append("<option value='"+ index +"'>" + element + "</option>");
-              });
-        });
-    });
-  });
 
 jQuery(document).ready(function($){
     $('#parroquia').change(function(){
-      $.get("{{ url('api/dropdown/parroquia')}}", 
-        { localidades: $(this).val() }, 
+      $.get("{{ url('api/dropdown/localidad')}}", 
+        { option: $(this).val() }, 
         function(data) {
-          var localidad = $('#cuadrante');
-          localidades.empty();
+          var localidad = $('#localidad');
+          localidad.empty();
  
           $.each(data, function(index, element) {
                   localidad.append("<option value='"+ index +"'>" + element + "</option>");
@@ -353,7 +316,7 @@ jQuery(document).ready(function($){
     });
   });
 
-//organismos
+
 
 
 

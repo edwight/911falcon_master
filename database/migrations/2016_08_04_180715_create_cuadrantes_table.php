@@ -32,6 +32,14 @@ class CreateCuadrantesTable extends Migration
             $table->integer('motivo_id')->unsigned()->nullable();
             $table->timestamps(); 
         });
+        Schema::create('contacto_cuadrante', function(Blueprint $table){
+            $table->engine = 'InnoDB';
+            $table->Increments('id')->unsigned();
+            $table->integer('cantidad')->unsigned()->nullable();
+            $table->integer('cuadrante_id')->unsigned()->nullable();
+            $table->integer('contacto_id')->unsigned()->nullable();
+            $table->timestamps(); 
+        });
     }
 
     /**

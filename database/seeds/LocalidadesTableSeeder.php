@@ -58,6 +58,70 @@ class LocalidadesTableSeeder extends Seeder
         Localidad::create(['localidad' => 'Lirios II, Los','municipio_id'=>'25','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300030']);
         Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
  50
+        Localidad::create(['localidad' => 'Santa Clavo','municipio_id'=>'01','parroquia_id'=>'03','ubigeom_id'=>'1101','ubigeop_id'=>'110103','ubigeol_id'=>'110103']);
+        Localidad::create(['localidad' => 'Felicidad II, La','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Vivienda Dispersa','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Mene de San Lorenzo, El (Capital)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Boca Pure','municipio_id'=>'01','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Santa Fe I','municipio_id'=>'01','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Campeche Viejo','municipio_id'=>'01','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Cedros, Los (Hacienda)','municipio_id'=>'01','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Agua Viva (Fundo)','municipio_id'=>'01','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Revolver, El(Fundo)','municipio_id'=>'01','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => '3 J, La(Fundo)','municipio_id'=>'01','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manolo Palma (Fundo)','municipio_id'=>'01','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Horqueta, La','municipio_id'=>'01','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Santa Clavo','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Santa Clavo','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Santa Clavo','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
+        Localidad::create(['localidad' => 'Manuel Meza  (Hacienda)','municipio_id'=>'25','parroquia_id'=>'01','ubigeom_id'=>'1125','ubigeop_id'=>'112505','ubigeol_id'=>'11010300032']);
 
     }
 }

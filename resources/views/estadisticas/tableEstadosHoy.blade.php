@@ -43,7 +43,7 @@
                 <tbody>
                  @foreach($estados as $estado)
                   <td>{{ $estado->id }}</td>
-                  <td>{{ $estado->entidad }}</td> 
+                  <td><a href="#">{{ $estado->entidad }}</a></td> 
                   <td>{{ $estadoA[$estado->id]->count() }}</td>  
                     </tr>  
                 @endforeach

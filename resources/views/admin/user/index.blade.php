@@ -82,113 +82,81 @@
       </div>
       <!-- end module panel estadisticas -->
 
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
               <a href="{{ URL::to('admin/users/create') }}">
-						<button type="button" class="btn btn-primary">Crear Nuevo Usuario</button></a>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                	<th style="width: 10px">#</th>
-                  	<th>Nombre</th>
-                  	<th>Cedula</th>
-                  	<th>Tipo de Usuario</th>
-                  	<th>accion</th>
-                </tr>
-                </thead>
-                <tbody>
-                <style type="text/css">
-                	.label-operador
-                	{
-                		background-color: #00a65a !important;
-                	}
-                	.label-despachador
-                	{
-                		background-color: #3c8dbc !important;
-                	}
-                	.label-supervisor
-                	{
-                		background-color: #f39c12 !important;
-                	}
-                	.label-admin
-                	{
-                	    background-color: #dd4b39 !important;
-                	}
-                </style>
-               	@foreach($user as $users)
-					<tr>
-					  <th scope="row"><a href="/admin/users/{{ $users->id }}">{{ $users->id}}</a></th>
-			          <td>{{ $users->name }}</td>
-			          <td>{{ $users->email }}</td>
-			          <td><span class="label label-{{ $users->roles }}">{{ $users->roles }}</span></td>
-
-			 		  <td><a href="{{ URL::to('admin/users/'.$users->id. '/edit') }}">
-						<button type="button" class="btn btn-primary">Editar</button></a>
-					    | {!!  Form::open(['url'=>'admin/users/'.$users->id]) !!}
-	                    		{!! Form::hidden('_method', 'DELETE') !!}
-	                    		{!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
-	                			{!! Form::close() !!}</td>
-					  </tr>
-					</tr>  
-				@endforeach
-                
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
+                <button type="button" class="btn btn-primary">Crear Nuevo Usuario</button></a>
           </div>
-          <!-- /.box -->
+          <!-- /.box-header -->
+          <div class="box-body">
+              <table class="table" id="myTableUser">
+                <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Nº Cedula</th>
+                      <th>Telefono</th>
+                      <th>Tipo de Usuario</th>
+                      <th>Foto</th>
+                      <th>accion</th>
+                  </tr>
+                </thead>
+              
+              </table>
+          </div>
+            <!-- /.box-body -->
         </div>
-        <!-- /.col -->
+          <!-- /.box -->
       </div>
+        <!-- /.col -->
+    </div>
       <!-- /.row -->
-    </section>
+  </section>
     <!-- /.content -->
-  </div>
+</div>
 @endsection
 
 @section('javascript')
-<!-- jQuery 2.2.3 -->
-<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/app.min.js"></script>
+
+  <!-- jQuery 2.2.3 -->
+<link rel="stylesheet" type="text/css" href="/plugins/datatables/jquery.dataTables.min.css">
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+
 <!-- page script -->
 <script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
+  $(document).ready(function(){
+    var table = $('#myTableUser').DataTable({
+          "processing": true,
+          "serverSide": true,
+          "order": [[ 1, "desc" ]],
+          "ajax": "api/listusers",
+          "fnRowCallback": function( nRow, data, iDisplayIndex, iDisplayIndexFull ) {
+                    if ( data.roles == "admin" )
+                    {
+                        $('td', nRow).css('background-color', '#ffe4e1');
+                    }
+                },
+          "columns":[
+            {data: 'id'},
+            {data: 'name'},
+            {data: 'email'},
+            {data: 'phone'},
+            {data: 'roles'},
+            {"data": function (data, type, row, meta) {
+              return '<div class="pull-left image"><img style="max-width: 45px;" src="'+data.foto+'" class="img-circle" alt="User Image"></div>';
+                }
+            },
+            {"data": function (data, type, row, meta) {
+              return '<a href="/admin/users/' + data.id + '/edit">' + '<button type="button" class="btn btn-info" aria-label="Left Align"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></button></a> <a href="/admin/users/' + data.id + '">' + '<button type="button" class="btn btn-danger" aria-label="Left Align"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></button></a>';
+                }
+            },
+          ],
     });
-  });
+});
 </script>
+
 @endsection

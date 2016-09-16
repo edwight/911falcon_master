@@ -62,6 +62,7 @@
   
 </style>
 @endsection
+
 @section('content')
     <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -141,28 +142,30 @@
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
-	                <tr>
+                  <tr>
                     <th>#</th>
-	                  <th>Telefono</th>
-	                  <th>Cedula</th>
-	                  <th>Nombre</th>
-	                  <th>Funcionario</th>
+                    <th>Telefono</th>
+                    <th>Cedula</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Funcionario</th>
                     <th>Organismos</th>
-	                  <th>Estatus</th>
+                    <th>Estatus</th>
                     <th>fecha</th>
-	                </tr>
+                  </tr>
                 </thead>
                 <tbody>
                 @foreach($contacto as $contactos)
-                	@if($contactos->status)
-                	<tr>
-				          <th scope="row"><a href="/admin/supervisores/despacho/{{ $contactos->id}}/edit">{{ $contactos->id }}</a></th>
+                  @if($contactos->status)
+                  <tr>
+                  <th scope="row"><a href="/admin/supervisores/despacho/{{ $contactos->id}}/edit">{{ $contactos->id }}</a></th>
                   <td>{{ $contactos->telefono }}</td>
-				          <td>{{ $contactos->cedula }}</td>
-				          <td>{{ $contactos->nombre }}</td>
+                  <td>{{ $contactos->cedula }}</td>
+                  <td>{{ $contactos->nombre }}</td>
+                  <td>{{ $contactos->direccion->despcricion}}</td>
                   <td>
                   @foreach($contactos->user as $users)
-				             <p>{{ $users->name }}|{{ $users->roles }}</p>
+                     <p>{{ $users->name }}|{{ $users->roles }}</p>
                   @endforeach
                   </td>
                   <td>
@@ -170,17 +173,18 @@
                    <p> <small class="label pull-right bg bg-{{$organismos->id}}">{{ $organismos->siglas }}</small></p>
                   @endforeach
                   </td>
-				          <td><small class="label pull-right bg-blue">no activo</small></td>
+                  <td><small class="label pull-right bg-blue">no activo</small></td>
                   <td>{{ $contactos->fecha_at }}</small></td>
-					       </tr>
-                	@else
-                	<tr>
-					  <th scope="row"><a href="/admin/supervisores/despacho/{{ $contactos->id}}/edit">{{ $contactos->id }}</a></th>
+                 </tr>
+                  @else
+                  <tr>
+            <th scope="row"><a href="/admin/supervisores/despacho/{{ $contactos->id}}/edit">{{ $contactos->id }}</a></th>
                 <td>{{ $contactos->telefono }}</td>
-			          <td>{{ $contactos->cedula }}</td>
-			          <td>{{ $contactos->nombre }}</td>
+                <td>{{ $contactos->cedula }}</td>
+                <td>{{ $contactos->nombre }}</td>
+                <td>{{ $contactos->direccion->despcricion}}</td>
                 <td>
-			          @foreach($contactos->user as $users)
+                @foreach($contactos->user as $users)
                     <p>{{ $users->name }}|{{ $users->roles }}</p>
                 @endforeach
                 </td>
@@ -189,12 +193,12 @@
                      <p><small class="label pull-right bg bg-{{$organismos->id}}">{{ $organismos->siglas }}</small></p>
                   @endforeach
                 </td>
-			          <td><small class="label pull-right bg-red">activo</small></td>
+                <td><small class="label pull-right bg-red">activo</small></td>
                  <td>{{ $contactos->fecha_at }}</small></td>
-			        
-					</tr>
-					@endif
-				@endforeach
+              
+          </tr>
+          @endif
+        @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
@@ -234,8 +238,16 @@
 @endsection
 
 @section('javascript')
+<!-- jQuery 2.2.3 -->
+<script type="text/javascript" src="{{ asset('/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script type="text/javascript" src="{{ asset('/bootstrap/js/bootstrap.min.js') }}"></script>
 
-<!-- DataTables -->
+<script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+
+
+
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
@@ -245,8 +257,42 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="{{ asset('dist/js/demo.js') }}"></script>
 <!-- page script -->
+<script type="text/javascript">
+  $(document).ready(function(){
+     var table = $('#myTableUser').DataTable({
+          "processing": true,
+          "serverSide": true,
+          "order": [[ 1, "desc" ]],
+          "ajax": "api/users",
+          "fnRowCallback": function( nRow, data, iDisplayIndex, iDisplayIndexFull ) {
+                    if ( data.status == "1" )
+                    {
+                        $('td', nRow).css('background-color', '#ffe4e1');
+                    }
+                },
+          "columns":[
+            {data: 'id'},
+            {data: 'status','visible':false},
+                {data: 'nombre'},
+                {data: 'telefono'},
+                {data: 'direccion.despcricion'},
+                {data: 'organismos.1.siglas'},
+                {data: 'motivo.motivo'},
+                {data: 'created_at'},  
+                {"data": function (data, type, row, meta) {
+                  return '<a href="/admin/supervisores/despacho/' + data.id + '/edit">' + '<button type="button" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></button></a>';
+                    }
+                },
+          ],
+      });
+      setInterval( function () {
+        table.ajax.reload();
+      }, 30000 );
 
+
+   });
+</script>
 @endsection
 

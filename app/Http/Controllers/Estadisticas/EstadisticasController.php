@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contacto;
 use App\Models\Motivo;
 use App\Models\Organismo;
+use App\Models\Cuadrante;
 use Carbon\Carbon;
 use DateTime;
 use App\Models\Llamada;
@@ -18,85 +19,7 @@ use App\Models\Municipio;
 
 class EstadisticasController extends Controller
 {
-
-    public function getUltimoDiaMes($elAnio,$elMes) {
-        return date("d",(mktime(0,0,0,$elMes+1,1,$elAnio)-1));
-    }
-    public function registros_mes($anio,$mes)
-    {
-        $primer_dia=1;
-        $ultimo_dia=$this->getUltimoDiaMes($anio,$mes);
-        $fecha_inicial=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$primer_dia) );
-        $fecha_final=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$ultimo_dia) );
-        $usuarios=User::whereBetween('created_at', [$fecha_inicial,  $fecha_final])->get();
-        $ct=count($usuarios);
-
-        for($d=1;$d<=$ultimo_dia;$d++){
-            $registros[$d]=0;     
-        }
-
-        foreach($usuarios as $usuario){
-        $diasel=intval(date("d",strtotime($usuario->created_at) ) );
-        $registros[$diasel]++;    
-        }
-
-        $data=array("totaldias"=>$ultimo_dia, "registrosdia" =>$registros);
-        return  json_encode($data);
-    }
-
-	public function fecha()
-    {
-
-    //$contactos = Contacto::where('fecha_at','2015-08-12')->get(); 
-    //$contactos = Contacto::where('fecha_at', '>', Carbon::now())->get();
-    //$contactos = Contacto::whereBetween('fecha_at', array(new DateTime('2016-02-22'), new DateTime('2015-09-12')))->get();
-    	
-    //$contactos = Contacto::where('cedula', '4556129365')->get();
-    $contactos = Contacto::where('fecha_at','<','2015-10-04')->get();
-	//$contactos = Contacto::orderBy('id', 'desc')->get();
-	    foreach($contactos as $contacto){
-	    	print('<br>'.$contacto->id.' | '.$contacto->fecha_at);
-	    }
-
-	}
-	public function user()
-    {
-
-    //$contactos = Contacto::where('fecha_at','2015')->where('fecha_at', '2016')->get(); 
-    //$contactos = Contacto::where('fecha_at', '>', Carbon::now())->get();
-    $conctatos = Contacto::whereBetween('fecha_at', array(new DateTime('2016-02-22'), new DateTime('2015-09-12')));
-
-	//$contactos = Contacto::all();
-	    foreach($conctatos as $contacto){
-	    	print('<br>'.$contacto->id);
-	    }
-
-	}
-	public function motivos()
-    {
-
-    //$contactos = Contacto::where('fecha_at','2015')->where('fecha_at', '2016')->get(); 
-    //$contactos = Contacto::where('fecha_at', '>', Carbon::now())->get();
-    //$conctatos = Contacto::all();
-    //$motivos = Motivo::find(15);
-    $motivo = Motivo::find(1);
-    return  'hay '.$motivo->contactos()->count().' casos de '.$motivo->motivo.' ';
-	//$contactos = Contacto::all();
-	    foreach($motivos->contactos() as $contacto){
-	    	print('<br>'.$contacto->id);
-	    }
-
-	}
-	public function municipios()
-    {
-
-   	$contactos = Contacto::where('municipio_id','5')->where('motivo_id', '15')->get(); 
-
-   	foreach($contactos as $contacto){
-	    	print('<br>'.' hay '.$contacto->count().' casos de '.$contacto->motivo->motivo.' en '.$contacto->municipio->municipio.' ');
-	    }
-	} 
-
+    
     public function organismosReporteTotal()
     {
         //$organismos = Organismo::find(12)->with('contactos')->where('updated_at','>=', '2016-08-18 00:00:00')->get();
@@ -121,11 +44,17 @@ class EstadisticasController extends Controller
         */
         return view('estadisticas.tableOrganismosHoy', compact('organismos','organismoA'));   
     }
-    public function organismosReporteBusqueda()
+    public function organismosReporteBusqueda(Request $request)
     {
-        //
-        //$organismos = Organismo::has('contactos')->get(); 
-        //return view('estadisticas.tableOrganismos', compact('organismos'));
+        //funciona bien
+        $fechaStart = $request->input('fechaStart');//required
+        $fechaEnd = $request->input('fechaEnd');//required
+        $organismos = Organismo::all();
+        foreach ($organismos as $organismo) {
+            $organismoA[$organismo->id] = Organismo::find($organismo->id)->contactos()->whereBetween('contacto_organismo.created_at', array(new DateTime($fechaStart), new DateTime($fechaEnd)))->get();
+            //where('contacto_organismo.created_at','>=', $fechaStart )->get();
+        }
+        return view('estadisticas.tableOrganismosHoy', compact('organismos','organismoA'));  
     }
 
     public function MotivosReporteTotal()
@@ -226,7 +155,6 @@ class EstadisticasController extends Controller
     }
     public function municipiosMotivos()
     {
-    
         //motivos por municipios
         //$llamadas = Llamada::where('updated_at','>=', Carbon::today())->get(); 
         $municipios = Contacto::where('municipio_id','1')->where('motivo_id','6')->get(); 
@@ -234,4 +162,27 @@ class EstadisticasController extends Controller
         //return $llamadas->id;
         print 'hay '.$municipios->count().' casos de '.$motivos->motivo.'<br>';
     }
+    public function cuadranteDetail($id)
+    {
+        return 'prueba';
+        return view('estadisticas.cuadrantes.show');  
+    }
+    public function reporteCuadranteMotivos()
+    {
+       $cuadrantes = Cuadrante::all();
+        foreach ($cuadrantes as $cuadrante) {
+            $cuadranteA[$cuadrante->id] = Cuadrante::find($cuadrante->id)->motivos()->where('created_at','>=', Carbon::today())->get();
+        }
+        return view('estadisticas.tableCuadranteMotivoHoy', compact('cuadrantes','cuadranteA'));  
+    }
+    public function reporteCuadranteContactos()
+    {
+     $cuadrantes = Cuadrante::all();
+    foreach ($cuadrantes as $cuadrante) {
+        $cuadranteA[$cuadrante->id] = Cuadrante::find($cuadrante->id)->contactos()->where('contacto_cuadrante.created_at','>=', Carbon::today())->get();
+    }
+    return view('estadisticas.tableCuadranteContactos', compact('cuadrantes','cuadranteA'));  
+    }
+
+    
 }

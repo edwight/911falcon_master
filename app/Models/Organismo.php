@@ -19,7 +19,7 @@ class Organismo extends Model
     }
     public function users()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->hasMany('App\Models\User');
     }
     public function estados(){
         //return $this->belongsTo('App\Models\Organismo');
@@ -36,5 +36,9 @@ class Organismo extends Model
     public function localidades(){
         //return $this->belongsTo('App\Models\Organismo');
         return $this->belongsToMany('App\Models\Localidad');
+    }
+    public function cuadrante(){
+        //return $this->belongsTo('App\Models\Organismo');
+        return $this->hasMany('App\Models\Cuadrante');
     }
 }

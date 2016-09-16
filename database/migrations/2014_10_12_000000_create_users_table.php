@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             //$table->integer('role');
             $table->string('password', 255);
             $table->integer('grupo_id')->unsigned();
+            $table->integer('organismo_id')->unsigned();
             //$table->Integer('llamada_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();  
